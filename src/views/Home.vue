@@ -1,11 +1,9 @@
 <template>
   <div class="home">
-    <Toast v-if="showToast" />
-    <Todos @badValue="triggerToast" />
-    <transition name="fade">
-      <div v-if="showP">hello</div>      
+    <transition name="toast">
+      <Toast v-if="showToast" />
     </transition>
-    <button type="reset" @click="showP = !showP">toggle hilsen</button>
+    <Todos @badValue="triggerToast" />          
   </div>
 </template>
 
@@ -31,32 +29,47 @@ export default {
 </script>
 
 <style>
-.fade-enter-from{
+/* .toast-enter-from{
   opacity: 0;
+  transform: translateY(-60px);
 }
 /**This class is by default has it's opacity of 1
  ** can be omitted
 */
-.fade-enter-to{
+/*.toast-enter-to{
   opacity: 1;
-}
-.fade-enter-active{
-  transition: all 2s ease;
+  transform: translateY(0);
+} */
+.toast-enter-active{
+  /*transition: all 0.3 ease;*/
+  animation: wobble 0.5s ease;
 }
 
 /**This class is by default has it's opacity of 1
  ** can be omitted
 */
-.fade-leave-from{
+.toast-leave-from{
   opacity: 1;
+  transform: translateY(0);
 
 }
-.fade-leave-to{
+.toast-leave-to{
   opacity: 0;
+  transform: translateY(-60px);
 }
-.fade-leave-active {
-  transition: all 1s ease;
+.toast-leave-active {
+  transition: all 0.2s ease;
 
+}
+
+@keyframes wobble {
+  0% {transform: translateY(-60px); opacity: 0;}
+  50% {transform: translateY(0px); opacity: 1;}
+  60% {transform: translateX(8px); }
+  70% {transform: translateX(-8px);}
+  80% {transform: translateX(4px); }
+  90% {transform: translateX(-4px); }
+  100% {transform: translateX(0px); }
 }
 
 </style>
